@@ -18,7 +18,7 @@ class Grid {
     var grid = Array<Array<Int>>()
     var toLife = Array<CGPoint>()
     var toDeath = Array<CGPoint>()
-    
+
     
     func initGrid(){
         for x in 0...sizeX{

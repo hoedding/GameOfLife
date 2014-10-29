@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25319B1219FE90DF00E543ED /* Dict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25319B1119FE90DF00E543ED /* Dict.swift */; };
 		2588DCC319F42F2D001F32C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2588DCC219F42F2D001F32C9 /* AppDelegate.swift */; };
 		2588DCC519F42F2D001F32C9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2588DCC419F42F2D001F32C9 /* GameScene.sks */; };
 		2588DCC719F42F2D001F32C9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2588DCC619F42F2D001F32C9 /* GameScene.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25319B1119FE90DF00E543ED /* Dict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dict.swift; sourceTree = "<group>"; };
 		2588DCBD19F42F2D001F32C9 /* GameOfLife2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfLife2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2588DCC119F42F2D001F32C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2588DCC219F42F2D001F32C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				2588DCCD19F42F2D001F32C9 /* Images.xcassets */,
 				2588DCCF19F42F2D001F32C9 /* LaunchScreen.xib */,
 				2588DCC019F42F2D001F32C9 /* Supporting Files */,
+				25319B1119FE90DF00E543ED /* Dict.swift */,
 			);
 			path = GameOfLife2;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			files = (
 				2588DCC719F42F2D001F32C9 /* GameScene.swift in Sources */,
 				2588DCC919F42F2D001F32C9 /* GameViewController.swift in Sources */,
+				25319B1219FE90DF00E543ED /* Dict.swift in Sources */,
 				2588DCC319F42F2D001F32C9 /* AppDelegate.swift in Sources */,
 				2588DCE719F42FE1001F32C9 /* Grid.swift in Sources */,
 			);
@@ -417,6 +421,7 @@
 				2588DCE219F42F2D001F32C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2588DCE319F42F2D001F32C9 /* Build configuration list for PBXNativeTarget "GameOfLife2Tests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +430,7 @@
 				2588DCE519F42F2D001F32C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
