@@ -7,11 +7,7 @@
 //
 
 import Foundation
-
-enum stat {
-    case isAlive
-    case isDeath
-}
+import UIKit
 
 struct pos :  Hashable {
     var description:String {
@@ -28,9 +24,10 @@ func == (lhs: pos, rhs: pos) -> Bool {
     return lhs.hashValue == rhs.hashValue
 }
 
-class Dict {
+let NEIGHBOURS : [CGPoint] = [CGPoint(x: -1, y: -1), CGPoint(x: -1, y: 0), CGPoint(x: -1, y: 1), CGPoint(x: 0, y: -1), CGPoint(x: 0, y: 1), CGPoint(x: 1, y: -1), CGPoint(x: 1, y: 0), CGPoint(x: 1, y: 1)]
 
-    var currentDict = [pos : stat]()
+class Dict {
+    var currentDict = [pos : Int]()
     var sizeX = 50
     var sizeY = 50
     
@@ -41,31 +38,17 @@ class Dict {
     }
     
     func setEntryAlive(position : pos){
-        currentDict[position] = stat.isAlive
-    }
-    
-    func isBorder(position: pos) -> Bool{
-        if(position.x == -1 || position.x == self.sizeX + 1 || position.y == -1 || position.y == self.sizeY+1){
-            return true
-        }
-        return false
+        currentDict[position] = 1
     }
     
     func isAlive(position: pos) -> Bool{
-        if(currentDict[position] == stat.isAlive){
+        if(currentDict[position] == 1){
             return true
         }
         return false
     }
     
-    func setActive(position: pos){
-        currentDict[position] = stat.isAlive
-    }
-    
     func dictContains(position: pos) -> Bool{
-        if(isBorder(position)){
-            return false
-        }
         if (( currentDict.indexForKey(position) ) != nil){
             return true
         }
@@ -74,47 +57,36 @@ class Dict {
     
     func checkNeighbourLivingPoint(position: pos) -> Bool{
         var count = 0
-        if(dictContains(pos(x: position.x + 1, y: position.y ))) {count++ }
-        if(dictContains(pos(x: position.x - 1, y: position.y ))) {count++ }
-        if(dictContains(pos(x: position.x, y: position.y - 1 ))) {count++ }
-        if(dictContains(pos(x: position.x, y: position.y + 1 ))) {count++ }
-        if(dictContains(pos(x: position.x + 1, y: position.y + 1 ))) {count++ }
-        if(dictContains(pos(x: position.x + 1, y: position.y - 1 ))) {count++ }
-        if(dictContains(pos(x: position.x - 1, y: position.y + 1 ))) {count++ }
-        if(dictContains(pos(x: position.x - 1, y: position.y - 1 ))) {count++ }
+        for i in 0...NEIGHBOURS.count - 1{
+            if(dictContains(pos(x: position.x + Int(NEIGHBOURS[i].x), y: position.y + Int(NEIGHBOURS[i].y))))
+                {count++ }
+        }
         switch(count){
-        case 0: return false
-        case 1: return false
         case 2: if(dictContains(position)) {return true }; return false
         case 3: return true
-        case 4: return false
         default: return false
         }
     }
     
     func checkNeighbourDeathPoint(position: pos) -> [pos]{
         var tempPoint = [pos]()
-        if ( checkNeighbourLivingPoint(pos(x: position.x + 1, y: position.y )))  {tempPoint.append(pos(x: position.x + 1, y: position.y))}
-        if ( checkNeighbourLivingPoint(pos(x: position.x - 1, y: position.y )))  {tempPoint.append(pos(x: position.x - 1, y: position.y ))}
-        if ( checkNeighbourLivingPoint(pos(x: position.x, y: position.y - 1 )))  {tempPoint.append(pos(x: position.x, y: position.y - 1 ))}
-        if ( checkNeighbourLivingPoint(pos(x: position.x, y: position.y + 1 )))  {tempPoint.append(pos(x: position.x, y: position.y + 1 ))}
-        if ( checkNeighbourLivingPoint(pos(x: position.x + 1, y: position.y + 1 )))  {tempPoint.append(pos(x: position.x + 1, y: position.y + 1 ))}
-        if ( checkNeighbourLivingPoint(pos(x: position.x + 1, y: position.y - 1 )))  {tempPoint.append(pos(x: position.x + 1, y: position.y - 1 ))}
-        if ( checkNeighbourLivingPoint(pos(x: position.x - 1, y: position.y + 1 )))  {tempPoint.append(pos(x: position.x - 1, y: position.y + 1 ))}
-        if ( checkNeighbourLivingPoint(pos(x: position.x - 1, y: position.y - 1 )))  {tempPoint.append(pos(x: position.x - 1, y: position.y - 1 ))}
+        for i in 0...NEIGHBOURS.count - 1{
+            if(checkNeighbourLivingPoint(pos(x: position.x + Int(NEIGHBOURS[i].x), y: position.y + Int(NEIGHBOURS[i].y))))
+            {tempPoint.append(pos(x: position.x + Int(NEIGHBOURS[i].x), y: position.y + Int(NEIGHBOURS[i].y)))}
+        }
         return tempPoint
     }
     
     func backToTheFuture(){
-        var nextGen = [pos : stat]()
+        var nextGen = [pos : Int]()
         for (position, status) in currentDict{
             if(checkNeighbourLivingPoint(position)){
-                nextGen[position] = stat.isAlive
+                nextGen[position] = 1
             }
             var tempPoint = checkNeighbourDeathPoint(position)
             if (tempPoint.count > 0){
                 for i in 0...tempPoint.count-1{
-                    nextGen[tempPoint[i]] = stat.isAlive
+                    nextGen[tempPoint[i]] = 1
                 }
             }
         }
